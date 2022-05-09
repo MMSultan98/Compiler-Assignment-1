@@ -26,6 +26,14 @@ noun_phrase(np(DET,N), A, Z) :- determiner(DET, A, B), noun(N, B, Z).
 noun_phrase(np(DET,N,PP), A, Z) :- determiner(DET, A, B), noun(N, B, C), perpositional_phrase(PP, C, Z).
 noun_phrase(np(DET,AJP,N), A, Z) :- determiner(DET, A, B), adjective_phrase(AJP, B, C), noun(N, C, Z).
 noun_phrase(np(DET,AJP,N,PP), A, Z) :- determiner(DET, A, B), adjective_phrase(AJP, B, C), noun(N, C, D), perpositional_phrase(PP, D, Z).
+noun_phrase(np(N,OPP), A, Z) :- noun(N, A, B), object_pronoun_phrase(OPP, B, Z).
+noun_phrase(np(N,PP,OPP), A, Z) :- noun(N, A, B), perpositional_phrase(PP, B, C), object_pronoun_phrase(OPP, C, Z).
+noun_phrase(np(AJP,N,OPP), A, Z) :- adjective_phrase(AJP, A, B), noun(N, B, C), object_pronoun_phrase(OPP, C, Z).
+noun_phrase(np(AJP,N,PP,OPP), A, Z) :- adjective_phrase(AJP, A, B), noun(N, B, C), perpositional_phrase(PP, C, D), object_pronoun_phrase(OPP, D, Z).
+noun_phrase(np(DET,N,OPP), A, Z) :- determiner(DET, A, B), noun(N, B, C), object_pronoun_phrase(OPP, C, Z).
+noun_phrase(np(DET,N,PP,OPP), A, Z) :- determiner(DET, A, B), noun(N, B, C), perpositional_phrase(PP, C, D), object_pronoun_phrase(OPP, D, Z).
+noun_phrase(np(DET,AJP,N,OPP), A, Z) :- determiner(DET, A, B), adjective_phrase(AJP, B, C), noun(N, C, D), object_pronoun_phrase(OPP, D, Z).
+noun_phrase(np(DET,AJP,N,PP,OPP), A, Z) :- determiner(DET, A, B), adjective_phrase(AJP, B, C), noun(N, C, D), perpositional_phrase(PP, D, E), object_pronoun_phrase(OPP, E, Z).
 
 verb_phrases(vps(VP), A, Z) :- verb_phrase(VP, A, Z).
 verb_phrases(vps(VP,CON,VPS), A, Z) :- verb_phrase(VP, A, B), conjunction(CON, B, C), verb_phrases(VPS, C, Z).
@@ -33,16 +41,10 @@ verb_phrases(vps(VP,CON,VPS), A, Z) :- verb_phrase(VP, A, B), conjunction(CON, B
 verb_phrase(vp(VA), A, Z) :- verb_adverb(VA, A, Z).
 verb_phrase(vp(VA,NPS), A, Z) :- verb_adverb(VA, A, B), noun_phrases(NPS, B, Z).
 verb_phrase(vp(VA,NPS,PP), A, Z) :- verb_adverb(VA, A, B), noun_phrases(NPS, B, C), perpositional_phrase(PP, C, Z).
-verb_phrase(vp(VA,NPS,OPP), A, Z) :- verb_adverb(VA, A, B), noun_phrases(NPS, B, C), object_pronoun_phrase(OPP, C, Z).
-verb_phrase(vp(VA,NPS,OPP,PP), A, Z) :- verb_adverb(VA, A, B), noun_phrases(NPS, B, C), object_pronoun_phrase(OPP, C, D), perpositional_phrase(PP, D, Z).
 verb_phrase(vp(VA,NPS1,NPS2), A, Z) :- verb_adverb(VA, A, B), noun_phrases(NPS1, B, C), noun_phrases(NPS2, C, Z).
 verb_phrase(vp(VA,NPS1,NPS2,PP), A, Z) :- verb_adverb(VA, A, B), noun_phrases(NPS1, B, C), noun_phrases(NPS2, C, D), perpositional_phrase(PP, D, Z).
-verb_phrase(vp(VA,NPS1,NPS2,OPP), A, Z) :- verb_adverb(VA, A, B), noun_phrases(NPS1, B, C), noun_phrases(NPS2, C, D), object_pronoun_phrase(OPP, D, Z).
-verb_phrase(vp(VA,NPS1,NPS2,OPP,PP), A, Z) :- verb_adverb(VA, A, B), noun_phrases(NPS1, B, C), noun_phrases(NPS2, C, D), object_pronoun_phrase(OPP, D, E), perpositional_phrase(PP, E, Z).
 verb_phrase(vp(V,NPS,AVP), A, Z) :- verb(V, A, B), noun_phrases(NPS, B, C), adverb_phrase(AVP, C, Z).
 verb_phrase(vp(V,NPS,PP,AVP), A, Z) :- verb(V, A, B), noun_phrases(NPS, B, C), perpositional_phrase(PP, C, D), adverb_phrase(AVP, D, Z).
-verb_phrase(vp(V,NPS,OPP,AVP), A, Z) :- verb(V, A, B), noun_phrases(NPS, B, C), object_pronoun_phrase(OPP, C, D), adverb_phrase(AVP, D, Z).
-verb_phrase(vp(V,NPS,OPP,PP,AVP), A, Z) :- verb(V, A, B), noun_phrases(NPS, B, C), object_pronoun_phrase(OPP, C, D), perpositional_phrase(PP, D, E), adverb_phrase(AVP, E, Z).
 
 verb_adverb(va(V), A, Z) :- verb(V, A, Z).
 verb_adverb(va(AVP,V), A, Z) :- adverb_phrase(AVP, A, B), verb(V, B, Z).
@@ -61,10 +63,11 @@ perpositional_phrase(pp(P,NP), A, Z) :- preposition(P, A, B), noun_phrase(NP, B,
 perpositional_phrase(pp(P,NP,PP), A, Z) :- preposition(P, A, B), noun_phrase(NP, B, C), perpositional_phrase(PP, C, Z).
 
 object_pronoun_phrase(opp(OP,PP,V), A, Z) :- object_pronoun(OP, A, B), personal_pronoun(PP, B, C), verb(V, C, Z).
+object_pronoun_phrase(opp(OP,NP,V), A, Z) :- object_pronoun(OP, A, B), noun_phrase(NP, B, C), verb(V, C, Z).
 
 
 % Categories
-determiner(d(D), [D|X], X) :- d(D).
+determiner(d(DET), [DET|X], X) :- d(DET).
 noun(n(N), [N|X], X) :- n(N).
 verb(v(V), [V|X], X) :- v(V).
 adjective(adj(AJ), [AJ|X], X) :- adj(AJ).
@@ -72,8 +75,8 @@ adverb(adv(AV), [AV|X], X) :- adv(AV).
 preposition(p(P), [P|X], X) :- p(P).
 personal_pronoun(pp(PP), [PP|X], X) :- pp(PP).
 interrogative_pronoun(ip(IP), [IP|X], X) :- ip(IP).
-object_pronoun(op(OP), [OP|X], X) :- op(OP).
-conjunction(con(C), [C|X], X) :- con(C).
+object_pronoun(op(OP), [OP|X], X) :- opn(OP).
+conjunction(con(CON), [CON|X], X) :- con(CON).
 
 
 % Lexicon
@@ -229,6 +232,6 @@ pp(it).
 ip(who).
 ip(what).
 
-op(whom).
+opn(whom).
 
 con(and).
