@@ -4,16 +4,16 @@ s(ISS, A, Z) :- interrogatory_sentences(ISS, A, Z).
 
 
 % Structures
-declarative_sentences(dss(DS), A, Z) :- declarative_sentence(DS, A, Z).
-declarative_sentences(dss(DS,CON,DSS), A, Z) :- declarative_sentence(DS, A, B), conjunction(CON, B, C), declarative_sentences(DSS, C, Z).
+declarative_sentences(dec_ss(DS), A, Z) :- declarative_sentence(DS, A, Z).
+declarative_sentences(dec_ss(DS,CON,DSS), A, Z) :- declarative_sentence(DS, A, B), conjunction(CON, B, C), declarative_sentences(DSS, C, Z).
 
-declarative_sentence(ds(NPS,VPS), A, Z) :- noun_phrases(NPS, A, B), verb_phrases(VPS, B, Z).
+declarative_sentence(dec_s(NPS,VPS), A, Z) :- noun_phrases(NPS, A, B), verb_phrases(VPS, B, Z).
 
-interrogatory_sentences(iss(IS), A, Z) :- interrogatory_sentence(IS, A, Z).
-interrogatory_sentences(iss(IS,CON,ISS), A, Z) :- interrogatory_sentence(IS, A, B), conjunction(CON, B, C), interrogatory_sentences(ISS, C, Z).
+interrogatory_sentences(int_ss(IS), A, Z) :- interrogatory_sentence(IS, A, Z).
+interrogatory_sentences(int_ss(IS,CON,ISS), A, Z) :- interrogatory_sentence(IS, A, B), conjunction(CON, B, C), interrogatory_sentences(ISS, C, Z).
 
-interrogatory_sentence(is(IP,VPS), A, Z) :- interrogative_pronoun(IP, A, B), verb_phrases(VPS, B, Z).
-interrogatory_sentence(is(IP,VPS1,VPS2), A, Z) :- interrogative_pronoun(IP, A, B), verb_phrases(VPS1, B, C), verb_phrases(VPS2, C, Z).
+interrogatory_sentence(int_s(IP,VPS), A, Z) :- interrogative_pronoun(IP, A, B), verb_phrases(VPS, B, Z).
+interrogatory_sentence(int_s(IP,VPS1,VPS2), A, Z) :- interrogative_pronoun(IP, A, B), verb_phrases(VPS1, B, C), verb_phrases(VPS2, C, Z).
 
 noun_phrases(nps(NP), A, Z) :- noun_phrase(NP, A, Z).
 noun_phrases(nps(NP,CON,NPS), A, Z) :- noun_phrase(NP, A, B), conjunction(CON, B, C), noun_phrases(NPS, C, Z).
@@ -22,10 +22,10 @@ noun_phrase(np(N), A, Z) :- noun(N, A, Z).
 noun_phrase(np(N,PP), A, Z) :- noun(N, A, B), perpositional_phrase(PP, B, Z).
 noun_phrase(np(AJP,N), A, Z) :- adjective_phrase(AJP, A, B), noun(N, B, Z).
 noun_phrase(np(AJP,N,PP), A, Z) :- adjective_phrase(AJP, A, B), noun(N, B, C), perpositional_phrase(PP, C, Z).
-noun_phrase(np(D,N), A, Z) :- determiner(D, A, B), noun(N, B, Z).
-noun_phrase(np(D,N,PP), A, Z) :- determiner(D, A, B), noun(N, B, C), perpositional_phrase(PP, C, Z).
-noun_phrase(np(D,AJP,N), A, Z) :- determiner(D, A, B), adjective_phrase(AJP, B, C), noun(N, C, Z).
-noun_phrase(np(D,AJP,N,PP), A, Z) :- determiner(D, A, B), adjective_phrase(AJP, B, C), noun(N, C, D), perpositional_phrase(PP, D, Z).
+noun_phrase(np(DET,N), A, Z) :- determiner(DET, A, B), noun(N, B, Z).
+noun_phrase(np(DET,N,PP), A, Z) :- determiner(DET, A, B), noun(N, B, C), perpositional_phrase(PP, C, Z).
+noun_phrase(np(DET,AJP,N), A, Z) :- determiner(DET, A, B), adjective_phrase(AJP, B, C), noun(N, C, Z).
+noun_phrase(np(DET,AJP,N,PP), A, Z) :- determiner(DET, A, B), adjective_phrase(AJP, B, C), noun(N, C, D), perpositional_phrase(PP, D, Z).
 
 verb_phrases(vps(VP), A, Z) :- verb_phrase(VP, A, Z).
 verb_phrases(vps(VP,CON,VPS), A, Z) :- verb_phrase(VP, A, B), conjunction(CON, B, C), verb_phrases(VPS, C, Z).
@@ -46,7 +46,6 @@ verb_phrase(vp(V,NPS,OPP,PP,AVP), A, Z) :- verb(V, A, B), noun_phrases(NPS, B, C
 
 verb_adverb(va(V), A, Z) :- verb(V, A, Z).
 verb_adverb(va(AVP,V), A, Z) :- adverb_phrase(AVP, A, B), verb(V, B, Z).
-%check
 verb_adverb(va(V,AVP), A, Z) :- verb(V, A, B), adverb_phrase(AVP, B, Z).
 
 adverb_phrase(avp(AV), A, Z) :- adverb(AV, A, Z).
