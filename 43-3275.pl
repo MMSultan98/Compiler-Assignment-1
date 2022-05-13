@@ -24,7 +24,7 @@ interrogatory_sentence_comma(int_sc(IS), A, Z) :- interrogatory_sentence(IS, A, 
 interrogatory_sentence_comma(int_sc(IS,ISC), A, Z) :- interrogatory_sentence(IS, A, B), interrogatory_sentence_comma(ISC, B, Z).
 
 interrogatory_sentence(int_s(IP,VPS), A, Z) :- interrogative_pronoun(IP, A, B), verb_phrases_past(VPS, B, Z).
-interrogatory_sentence(int_s(IP,VPS1,VPS2), A, Z) :- interrogative_pronoun(IP, A, B), verb_phrases_past_aux(VPS1, B, C), verb_phrases_inf(VPS2, C, Z).
+interrogatory_sentence(int_s(IP,V,VPS), A, Z) :- interrogative_pronoun(IP, A, B), verb_past_aux(V, B, C), verb_phrases_past_aux(VPS, C, Z).
 
 % 2.2- Noun phrases
 noun_phrases(nps(NP), A, Z) :- noun_phrase(NP, A, Z).
@@ -85,17 +85,8 @@ verb_phrases_past_aux(vps(VPC,CON,VP), A, Z) :- verb_phrase_past_aux_comma(VPC, 
 verb_phrase_past_aux_comma(vpc(VP), A, Z) :- verb_phrase_past_aux(VP, A, Z).
 verb_phrase_past_aux_comma(vpc(VP,VPC), A, Z) :- verb_phrase_past_aux(VP, A, B), verb_phrase_past_aux_comma(VPC, B, Z).
 
-verb_phrase_past_aux(vp(V,NPS), A, Z) :- verb_past_aux(V, A, B), noun_phrases(NPS, B, Z).
-
-% 2.3.4- Verb phrases (infinitive verbs)
-verb_phrases_inf(vps(VP), A, Z) :- verb_phrase_inf(VP, A, Z).
-verb_phrases_inf(vps(VPC,CON,VP), A, Z) :- verb_phrase_inf_comma(VPC, A, B), conjunction(CON, B, C), verb_phrase_inf(VP, C, Z).
-
-verb_phrase_inf_comma(vpc(VP), A, Z) :- verb_phrase_inf(VP, A, Z).
-verb_phrase_inf_comma(vpc(VP,VPC), A, Z) :- verb_phrase_inf(VP, A, B), verb_phrase_inf_comma(VPC, B, Z).
-
-verb_phrase_inf(vp(VA), A, Z) :- verb_inf_adverb(VA, A, Z).
-verb_phrase_inf(vp(VAS,PP), A, Z) :- verb_inf_adverbs(VAS, A, B), perpositional_phrase(PP, B, Z).
+verb_phrase_past_aux(vp(NPS,VA), A, Z) :- noun_phrases(NPS, A, B), verb_inf_adverbs(VA, B, Z).
+verb_phrase_past_aux(vp(NPS,V,AVP), A, Z) :- noun_phrases(NPS, A, B), verbs_inf(V, B, C), adverb_phrase(AVP, C, Z).
 
 % 2.4- Verbs with adverb phrases
 % 2.4.1- Verbs with adverb phrases (past tense verbs)
