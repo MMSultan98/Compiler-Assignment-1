@@ -98,7 +98,6 @@ verb_past_adverb_comma(vac(VA,VAC), A, Z) :- verb_past_adverb(VA, A, B), verb_pa
 
 verb_past_adverb(va(V), A, Z) :- verb_past(V, A, Z).
 verb_past_adverb(va(AVP,V), A, Z) :- adverb_phrase(AVP, A, B), verb_past(V, B, Z).
-verb_past_adverb(va(V,AVP), A, Z) :- verb_past(V, A, B), adverb_phrase(AVP, B, Z).
 
 % 2.4.2- Verbs with adverb phrases (past tense verbs with 2 objects)
 verb_past_2_adverbs(vas(VA), A, Z) :- verb_past_2_adverb(VA, A, Z).
@@ -109,7 +108,6 @@ verb_past_2_adverb_comma(vac(VA,VAC), A, Z) :- verb_past_2_adverb(VA, A, B), ver
 
 verb_past_2_adverb(va(V), A, Z) :- verb_past_2(V, A, Z).
 verb_past_2_adverb(va(AVP,V), A, Z) :- adverb_phrase(AVP, A, B), verb_past_2(V, B, Z).
-verb_past_2_adverb(va(V,AVP), A, Z) :- verb_past_2(V, A, B), adverb_phrase(AVP, B, Z).
 
 % 2.4.3- Verbs with adverb phrases (infinitive verbs)
 verb_inf_adverbs(vas(VA), A, Z) :- verb_inf_adverb(VA, A, Z).
@@ -120,7 +118,6 @@ verb_inf_adverb_comma(vac(VA,VAC), A, Z) :- verb_inf_adverb(VA, A, B), verb_inf_
 
 verb_inf_adverb(va(V), A, Z) :- verb_inf(V, A, Z).
 verb_inf_adverb(va(AVP,V), A, Z) :- adverb_phrase(AVP, A, B), verb_inf(V, B, Z).
-verb_inf_adverb(va(V,AVP), A, Z) :- verb_inf(V, A, B), adverb_phrase(AVP, B, Z).
 
 % 2.5- Verbs
 % 2.5.1- Verbs (past tense)
