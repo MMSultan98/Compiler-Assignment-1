@@ -281,6 +281,10 @@ v_inf(sell).
 v_inf(make).
 v_inf(get).
 v_inf(cook).
+v_inf(say).
+v_inf(live).
+v_inf(die).
+v_inf(teach).
 
 % 4.7- Adjectives
 adj(young).
@@ -369,6 +373,7 @@ pp(it).
 % 4.11- Interrogative pronouns
 ip(who).
 ip(what).
+ip(where).
 
 % 4.12- Object pronouns
 opn(whom).
